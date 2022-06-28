@@ -1,7 +1,4 @@
-// server.js
-
-// set up ======================================================================
-// get all the tools we need
+// Dependencies
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 8080;
@@ -11,7 +8,6 @@ var flash = require('connect-flash');
 
 
 require('./config/passport')(passport); // pass passport for configuration
-
 
 app.configure(function () {
 
@@ -34,10 +30,6 @@ app.configure(function () {
 
 });
 
-
-
-
-
 // routes ======================================================================
 //use mongodb only
 //require('./app/routes.js')(app, passport);
@@ -53,7 +45,6 @@ require('./app/routes-mysql.js')(app, passport);
 
 //use connection pooling
 //require('./app/myroutes-pooling.js')(app, passport);
-
 
 // launch ======================================================================
 app.listen(port);
