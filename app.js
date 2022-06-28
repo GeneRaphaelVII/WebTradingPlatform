@@ -1,7 +1,4 @@
-/**
- * Module dependencies.
- */
-
+// Dependencies
 var express = require('express');
 var routes = require('./routes');
 var http = require('http');
@@ -14,7 +11,7 @@ var app = express();
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/cmpe275');
 
-// all environments
+// All environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -32,7 +29,7 @@ app.use(express.session({
 	secret : '1234567890QWERTY'
 }));
 
-// development only
+// Development Only
 if ('development' === app.get('env')) {
   app.use(express.errorHandler());
 }
@@ -40,13 +37,9 @@ if ('development' === app.get('env')) {
 app.get('/', routes.index);
 
 // Customer
-
 app.get('/viewCustomers', routes.viewCustomers);
 app.post('/users', routes.createuser);
 app.get('/users/:userId', routes.getUserById);
-//app.post('/validateUser', routes.validateUser);
-//app.del('/removeuser/:emailId', routes.removeUser);
-//app.put('/updateuser', routes.updateuser);
 
 //Category
 app.post('/category', routes.createCategory);
@@ -60,18 +53,13 @@ app.del('/category/:categoryId/product/:productId', routes.removeProduct);
 app.get('/category/:categoryId/product/:productId', routes.getProductById);
 app.get('/category/:categoryId/product', routes.getProductsBycatId);
 
-
-//offer
+//Offer
 app.get('/category/:categoryId/offer', routes.viewOffers);
 app.get('/category/:categoryId/product/:productId/offer', routes.byproductid);
 app.post('/category/:categoryId/product/:productId/offer', routes.createoffer);
 app.get('/category/:categoryId/product/:productId/offer/:offerId', routes.byofferid);
 app.put('/category/:categoryId/product/:productId/offer/:offerId', routes.updateoffer);
 app.del('/category/:categoryId/product/:productId/offer/:offerId', routes.removeOffer);
-//app.get('/byproductid', routes.byproductid);
-//app.put('/byofferid', routes.byofferid);
-
-//app.post('/createoffer', routes.createoffer);
 app.post('/category/:categoryId/product/:productId/offer/:offerId/comment', routes.postComment);
 app.get('/getCommentHistory', routes.getCommentHistory);
 http.createServer(app).listen(app.get('port'), function(){
